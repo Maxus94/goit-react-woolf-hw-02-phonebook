@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { ContactForm } from './ContactForm/ContactForm';
 
 // style={{
 //   height: '100vh',
@@ -18,22 +19,18 @@ export class App extends Component {
     number: '',
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    this.state.contacts.some(({ name }) => name === this.state.name)
-      ? alert('exist')
-      : this.createContact(this.state.name, this.state.number);
-  };
   handleChange = evt => {
     this.setState({ [evt.target.name]: evt.target.value });
   };
-
+  
   createContact = (name, number) => {
     const id = nanoid();
     this.setState(prev => ({
       contacts: [...prev.contacts, { name, number, id }],
     }));
   };
+
+
 
   handleDelete = id => {
     this.setState(prev => ({
@@ -45,31 +42,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <form action="" onSubmit={this.handleSubmit}>
-          <label htmlFor="">
-            Name
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor="">
-            Number
-            <input
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-              onChange={this.handleChange}
-            />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
+        <ContactForm contacts={this.state.contacts} createContact={this.createContact}/>
         <h2>Contacts</h2>
         <label htmlFor="">
           Find contact by name
