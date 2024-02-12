@@ -4,6 +4,8 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
+import css from './App.module.css';
+
 export class App extends Component {
   state = {
     contacts: [],
@@ -52,7 +54,7 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className={css.container}>
         <h1>Phonebook</h1>
         <ContactForm
           contacts={this.state.contacts}
