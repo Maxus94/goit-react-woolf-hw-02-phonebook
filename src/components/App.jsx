@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
+import { Filter } from './Filter/Filter';
+import { ContactList } from './ContactList/ContactList';
 
 // style={{
 //   height: '100vh',
@@ -15,14 +17,12 @@ export class App extends Component {
   state = {
     contacts: [],
     filter: '',
-    name: '',
-    number: '',
   };
 
   handleChange = evt => {
     this.setState({ [evt.target.name]: evt.target.value });
   };
-  
+
   createContact = (name, number) => {
     const id = nanoid();
     this.setState(prev => ({
@@ -44,7 +44,9 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm contacts={this.state.contacts} createContact={this.createContact}/>
         <h2>Contacts</h2>
-        <label htmlFor="">
+        <Filter handleChange={this.handleChange}/>
+        <ContactList contacts = {this.state.contacts}/>
+        {/* <label htmlFor="">
           Find contact by name
           <input
             type="text"
@@ -80,7 +82,7 @@ export class App extends Component {
                   Delete
                 </button>
               </li>
-            ))}
+            ))} */}
       </div>
     );
   }

@@ -4,12 +4,10 @@ export class ContactForm extends Component {
     name: '',
     number: '',
   };
-  handleChange = evt => {
-    this.setState({ [evt.target.name]: evt.target.value });
-  };
+  
   handleSubmit = evt => {
     evt.preventDefault();
-    console.log(this.props.contacts);
+    console.log(this.state);    
     this.props.contacts.some(({ name }) => name === this.state.name)
       ? alert('exist')
       : this.props.createContact(this.state.name, this.state.number);
